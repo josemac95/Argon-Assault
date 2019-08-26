@@ -5,6 +5,9 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerShip : MonoBehaviour
 {
+	// Velocidad máxima horizontal de la nave (m/s)
+	[Tooltip("In ms^-1")] [SerializeField] float xSpeed = 4f;
+
 	void Start()
 	{
 
@@ -12,7 +15,10 @@ public class PlayerShip : MonoBehaviour
 
 	void Update()
 	{
-		float horizontalThrow = CrossPlatformInputManager.GetAxis("Horizontal");
-		print(horizontalThrow);
+		// Impulso horizontal (valor de -1 a 1)
+		// Depende de la sensibilidad y la gravedad
+		float xThrow = CrossPlatformInputManager.GetAxis("Horizontal");
+		// Desplazamiento para este frame
+		float xOffset = xThrow * xSpeed * Time.deltaTime;
 	}
 }
