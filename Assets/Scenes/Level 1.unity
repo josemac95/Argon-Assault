@@ -404,7 +404,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4757182744352455620}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1887374746
+--- !u!114 &1887374749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -416,6 +416,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e1e7b9be00e9a4eaadeadfd4685294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xSpeed: 4
+  xRange: 4
 --- !u!1001 &4065112611824689497
 PrefabInstance:
   m_ObjectHideFlags: 0
