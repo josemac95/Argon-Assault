@@ -418,7 +418,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   xRange: 4
-  yRange: 2.25
+  yRange: 2.5
+  positionPitchFactor: -8
+  yThrowPitchFactor: -10
+  positionYawFactor: 7
+  xThrowRollFactor: -20
 --- !u!1001 &4065112611824689497
 PrefabInstance:
   m_ObjectHideFlags: 0
