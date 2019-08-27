@@ -20,11 +20,13 @@ public class PlayerShip : MonoBehaviour
 	void Update()
 	{
 		// Movimiento de la nave
-		MoveShip();
+		ProcessTranslation();
+		// Rotacion de la nave
+		ProcessRotation();
 	}
 
 	// Movimiento de la nave en la posición local
-	private void MoveShip()
+	private void ProcessTranslation()
 	{
 		// Posición horizontal
 		float xPos = CalculateXPos();
@@ -60,5 +62,13 @@ public class PlayerShip : MonoBehaviour
 		float rawYPos = transform.localPosition.y + yOffset;
 		// Posición local en el eje vertical con el limite vertical
 		return Mathf.Clamp(rawYPos, -yRange, yRange);
+	}
+
+	// Movimiento de rotación de la nave
+	private void ProcessRotation()
+	{
+		// Rotación local
+		// x, y, z = pitch, yaw, roll = cabeceo (vertical), guiñada (horziontal), alabeo (rotación)
+		transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
 	}
 }
