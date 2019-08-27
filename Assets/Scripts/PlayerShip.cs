@@ -6,7 +6,7 @@ using UnityStandardAssets.CrossPlatformInput;
 public class PlayerShip : MonoBehaviour
 {
 	// Velocidad máxima de la nave (m/s)
-	[Tooltip("In ms^-1")] [SerializeField] float speed = 5f;
+	[Tooltip("In ms^-1")] [SerializeField] float speed = 10f;
 	// Limite horizontal de movimiento (m)
 	[Tooltip("In m")] [SerializeField] float xRange = 4f;
 	// Limite vertical de movimiento (m)
