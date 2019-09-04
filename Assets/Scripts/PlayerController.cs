@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class PlayerShip : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
+	[Header("General")]
 	// Velocidad máxima de la nave (m/s)
 	[Tooltip("In ms^-1")] [SerializeField] float speed = 10f;
 	// Limite horizontal de movimiento (m)
 	[Tooltip("In m")] [SerializeField] float xRange = 4f;
 	// Limite vertical de movimiento (m)
 	[Tooltip("In m")] [SerializeField] float yRange = 2.5f;
+
+	[Header("Screen-position Based")]
 	// Factor de cabeceo respecto a la posición en Y
 	[SerializeField] float positionPitchFactor = -8f;
-	// Factor de cabeceo respecto al impuslo vertical
-	[SerializeField] float yThrowPitchFactor = -10f;
 	// Factor de guiñada respecto a la posición en X
 	[SerializeField] float positionYawFactor = 7f;
+
+	[Header("Controll-Throw Based")]
+	// Factor de cabeceo respecto al impuslo vertical
+	[SerializeField] float yThrowPitchFactor = -10f;
 	// Factor de alabeo respecto al impuslo horizontal
 	[SerializeField] float xThrowRollFactor = -20f;
 
@@ -25,6 +30,9 @@ public class PlayerShip : MonoBehaviour
 	// Impulso vertical de la nave
 	float yThrow;
 
+	// Si el jugador puede moverse
+	bool isControlEnabled = true;
+
 	void Start()
 	{
 
@@ -32,10 +40,19 @@ public class PlayerShip : MonoBehaviour
 
 	void Update()
 	{
-		// Movimiento de la nave
-		ProcessTranslation();
-		// Rotacion de la nave
-		ProcessRotation();
+		if (isControlEnabled)
+		{
+			// Movimiento de la nave
+			ProcessTranslation();
+			// Rotacion de la nave
+			ProcessRotation();
+		}
+	}
+
+	// Si el jugador muere (Cuidado: se referencia por cadena de texo)
+	void OnPlayerDeath()
+	{
+		isControlEnabled = false;
 	}
 
 	// Movimiento de la nave en la posición local
@@ -88,17 +105,5 @@ public class PlayerShip : MonoBehaviour
 		float roll = xThrow * xThrowRollFactor;
 		// Rotación local
 		transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
-	}
-
-	// Si choca con un objeto (colisión)
-	void OnCollisionEnter(Collision collision)
-	{
-		print("hit");
-	}
-
-	// Si choca con un objeto (disparador)
-	void OnTriggerEnter(Collider other)
-	{
-		print("trigger");
 	}
 }
