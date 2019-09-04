@@ -89,4 +89,16 @@ public class PlayerShip : MonoBehaviour
 		// Rotación local
 		transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
 	}
+
+	// Si choca con un objeto (colisión)
+	void OnCollisionEnter(Collision collision)
+	{
+		print("hit");
+	}
+
+	// Si choca con un objeto (disparador)
+	void OnTriggerEnter(Collider other)
+	{
+		print("trigger");
+	}
 }
