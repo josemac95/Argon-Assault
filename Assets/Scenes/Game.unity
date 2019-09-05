@@ -1358,6 +1358,16 @@ PrefabInstance:
       propertyPath: deathFX
       value: 
       objectReference: {fileID: 1784784717}
+    - target: {fileID: 4662389029158001073, guid: 31b853a48365d6a4fb04fe63bb5817c9,
+        type: 3}
+      propertyPath: m_Name
+      value: Bullets Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662389030140719479, guid: 31b853a48365d6a4fb04fe63bb5817c9,
+        type: 3}
+      propertyPath: m_Name
+      value: Bullets Right
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31b853a48365d6a4fb04fe63bb5817c9, type: 3}
 --- !u!4 &4757182744352455621 stripped
