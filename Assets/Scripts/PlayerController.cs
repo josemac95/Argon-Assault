@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
 	// Factor de alabeo respecto al impuslo horizontal
 	[SerializeField] float xThrowRollFactor = -20f;
 
+	[Header("Death")]
+	// Tiempo de destrucción
+	[Tooltip("In seconds")] [SerializeField] float destructionTime = 0.5f;
+
 	// Impulso horizontal de la nave
 	float xThrow;
 	// Impulso vertical de la nave
@@ -52,7 +56,16 @@ public class PlayerController : MonoBehaviour
 	// Si el jugador muere (Cuidado: se referencia por cadena de texo)
 	void OnPlayerDeath()
 	{
+		// Deshabilita el control
 		isControlEnabled = false;
+		// Destruye la nave pasado un tiempo
+		Invoke("PlayerShipDestruction", destructionTime);
+	}
+
+	// La destrucción de la nave es hacer el objeto inactivo
+	private void PlayerShipDestruction()
+	{
+		gameObject.SetActive(false);
 	}
 
 	// Movimiento de la nave en la posición local

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+	// Efecto de muerte
+	[Tooltip("FX prefab on enemy")] [SerializeField] GameObject deathFX;
+	// Padre de los objetos creados en tiempo de ejecución
+	[Tooltip("Parent (Spawned at Runtime)")] [SerializeField] Transform parent;
+
 	void Start()
 	{
 		// Añade el componente via script
@@ -23,6 +28,11 @@ public class Enemy : MonoBehaviour
 	// Si choca una partícula con el objeto
 	void OnParticleCollision(GameObject other)
 	{
+		// Efecto de muerte (instancia el prefab)
+		GameObject fx = Instantiate(deathFX, transform.position, Quaternion.identity);
+		// Lo agrupa en la jerarquía
+		fx.transform.parent = parent;
+		// Destruye el enemigo
 		Destroy(gameObject);
 	}
 }
