@@ -9,11 +9,21 @@ public class Enemy : MonoBehaviour
 	// Padre de los objetos creados en tiempo de ejecución
 	[Tooltip("Parent (Spawned at Runtime)")] [SerializeField] Transform parent;
 
+	// Indica que no ha recibido impactos
+	bool noImpacts = true;
+
+	// Referencia a la puntuación
+	ScoreBoard scoreBoard;
+	// Puntuación por impacto
+	[SerializeField] int scorePerHit = 12;
+
 	void Start()
 	{
 		// Añade el componente via script
 		// Por si se actualiza el Asset Pack
 		AddNonTriggerBoxCollider();
+		// Busca el ScoreBoard
+		scoreBoard = FindObjectOfType<ScoreBoard>();
 	}
 
 	// Añade el collider (No trigger)
@@ -28,6 +38,13 @@ public class Enemy : MonoBehaviour
 	// Si choca una partícula con el objeto
 	void OnParticleCollision(GameObject other)
 	{
+		// Incrementa la puntuación si es el primer impacto
+		if (noImpacts)
+		{
+			scoreBoard.ScoreHit(scorePerHit);
+		}
+		// Hay un impacto
+		noImpacts = false;
 		// Efecto de muerte (instancia el prefab)
 		GameObject fx = Instantiate(deathFX, transform.position, Quaternion.identity);
 		// Lo agrupa en la jerarquía

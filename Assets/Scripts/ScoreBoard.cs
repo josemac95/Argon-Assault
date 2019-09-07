@@ -7,8 +7,6 @@ public class ScoreBoard : MonoBehaviour
 {
 	// Puntuación
 	int score;
-	// Puntuación por impacto
-	[SerializeField] int scorePerHit = 12;
 	// Texto
 	Text scoreText;
 
@@ -23,7 +21,7 @@ public class ScoreBoard : MonoBehaviour
 	}
 
 	// Función para actualizar la puntuación
-	public void ScoreHit()
+	public void ScoreHit(int scorePerHit)
 	{
 		// Suma la puntuación del impacto
 		score = score + scorePerHit;
