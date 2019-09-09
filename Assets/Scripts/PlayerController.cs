@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
 	// Tiempo de destrucción
 	[Tooltip("In seconds")] [SerializeField] float destructionTime = 0.5f;
 
+	[Header("Guns")]
+	// Armas de la nave
+	[SerializeField] GameObject[] guns;
+
 	// Impulso horizontal de la nave
 	float xThrow;
 	// Impulso vertical de la nave
@@ -50,6 +54,8 @@ public class PlayerController : MonoBehaviour
 			ProcessTranslation();
 			// Rotacion de la nave
 			ProcessRotation();
+			// Disparos
+			ProcessFiring();
 		}
 	}
 
@@ -118,5 +124,28 @@ public class PlayerController : MonoBehaviour
 		float roll = xThrow * xThrowRollFactor;
 		// Rotación local
 		transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
+	}
+
+	// Procesa el disparo de la nave
+	private void ProcessFiring()
+	{
+		if (CrossPlatformInputManager.GetButton("Fire"))
+		{
+			ActivateGuns(true);
+		}
+		else
+		{
+			ActivateGuns(false);
+		}
+	}
+
+	// Activa/Desactiva las armas
+	private void ActivateGuns(bool value)
+	{
+		// Para cada arma
+		foreach (GameObject gun in guns)
+		{
+			gun.SetActive(value);
+		}
 	}
 }
