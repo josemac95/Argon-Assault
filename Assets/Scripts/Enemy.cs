@@ -9,13 +9,15 @@ public class Enemy : MonoBehaviour
 	// Padre de los objetos creados en tiempo de ejecución
 	[Tooltip("Parent (Spawned at Runtime)")] [SerializeField] Transform parent;
 
-	// Indica que no ha recibido impactos
-	bool noImpacts = true;
-
 	// Referencia a la puntuación
 	ScoreBoard scoreBoard;
 	// Puntuación por impacto
 	[SerializeField] int scorePerHit = 12;
+	// Puntuación por muerte
+	[SerializeField] int scorePerKill = 100;
+
+	// Vida (en número de impactos)
+	[SerializeField] int hits = 10;
 
 	void Start()
 	{
@@ -38,13 +40,32 @@ public class Enemy : MonoBehaviour
 	// Si choca una partícula con el objeto
 	void OnParticleCollision(GameObject other)
 	{
-		// Incrementa la puntuación si es el primer impacto
-		if (noImpacts)
+		// Para evitar doble muerte por colisión simultánea
+		if (hits > 0)
 		{
-			scoreBoard.ScoreHit(scorePerHit);
+			ProcessHit();
+			// Si está muerto
+			if (hits == 0)
+			{
+				KillEnemy();
+			}
 		}
-		// Hay un impacto
-		noImpacts = false;
+	}
+
+	// Procesa el impacto
+	private void ProcessHit()
+	{
+		// Incrementa la puntuación por impacto
+		scoreBoard.ScoreHit(scorePerHit);
+		// Queda menos vida
+		hits = hits - 1;
+	}
+
+	// Mata al enemigo
+	private void KillEnemy()
+	{
+		// Puntuación por matar
+		scoreBoard.ScoreHit(scorePerKill);
 		// Efecto de muerte (instancia el prefab)
 		GameObject fx = Instantiate(deathFX, transform.position, Quaternion.identity);
 		// Lo agrupa en la jerarquía
