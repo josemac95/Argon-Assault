@@ -140,12 +140,13 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Activa/Desactiva las armas
-	private void ActivateGuns(bool value)
+	private void ActivateGuns(bool isActive)
 	{
 		// Para cada arma
 		foreach (GameObject gun in guns)
 		{
-			gun.SetActive(value);
+			var emissionModule = gun.GetComponent<ParticleSystem>().emission;
+			emissionModule.enabled = isActive;
 		}
 	}
 }
